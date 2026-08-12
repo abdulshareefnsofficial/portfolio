@@ -47,7 +47,7 @@ export const Navbar = ({ activeSection }) => {
             </div>
             <div>
               <span className="font-bold text-lg tracking-tight text-white group-hover:text-indigo-400 transition-colors flex items-center gap-1.5">
-                Abdul Shareef
+                Abdul Shareef Ns
                 <span className="inline-block w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
               </span>
               <span className="text-xs text-slate-400 font-mono block -mt-1">

@@ -45,7 +45,7 @@ export const About = () => {
           <div className="lg:col-span-7 glass-panel p-8 rounded-3xl border-slate-800 flex flex-col justify-between space-y-6">
             <div className="space-y-4">
               <h3 className="text-2xl font-bold text-white flex items-center gap-2">
-                <span>Who is Abdul Shareef?</span>
+                <span>Who is Abdul Shareef Ns?</span>
               </h3>
               <p className="text-slate-300 text-base leading-relaxed">
                 I am a passionate <strong className="text-indigo-400">AI & ML Engineer, 2D Motion Graphics Designer, and Full Stack Web Developer</strong> based in {personalInfo.location}. I graduated with a B.Sc. in Artificial Intelligence & Machine Learning (AI&ML) from Sree Saraswathi Thyagaraja College (STC), Pollachi (2022) and earned my Master Diploma in 2D Graphics & Web Design at Dreamzone School of Creative Studies (2025).
