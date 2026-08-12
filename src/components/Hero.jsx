@@ -145,7 +145,7 @@ export const Hero = () => {
                   <span className="text-purple-400">const</span> <span className="text-indigo-400">developer</span> = &#123;
                 </div>
                 <div className="pl-4">
-                  <span className="text-cyan-400">name</span>: <span className="text-emerald-400">"Abdul Shareef N S"</span>,
+                  <span className="text-cyan-400">name</span>: <span className="text-emerald-400">"Abdul Shareef"</span>,
                 </div>
                 <div className="pl-4">
                   <span className="text-cyan-400">expertise</span>: [<span className="text-amber-300">"AI&ML"</span>, <span className="text-amber-300">"2DMotion"</span>, <span className="text-amber-300">"FullStack"</span>],
