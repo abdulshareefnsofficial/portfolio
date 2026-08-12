@@ -117,7 +117,7 @@ export const portfolioData = {
       techStack: ["Python", "Deep Learning", "CNN", "PyTorch", "OpenCV", "FastAPI", "React"],
       image: "https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?auto=format&fit=crop&w=1000&q=80",
       liveUrl: "https://abdulshareefnsofficial.github.io/portfolio/#traffic-sign-detection",
-      githubUrl: "https://github.com/abdulshareefnsofficial/traffic-sign-detection",
+      githubUrl: "https://github.com/abdulshareefnsofficial/handwritten-digit-recognition-cnn",
       highlights: [
         "High accuracy classification on German Traffic Sign Recognition Benchmark (GTSRB)",
         "Real-time video frame object detection processing using OpenCV & CNN",
@@ -151,7 +151,7 @@ export const portfolioData = {
       techStack: ["Python", "Deep Learning", "CNN", "OpenCV", "Tkinter"],
       image: "https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?auto=format&fit=crop&w=1000&q=80",
       liveUrl: "https://abdulshareefnsofficial.github.io/portfolio/#handwritten-digit-recognition",
-      githubUrl: "https://github.com/abdulshareefnsofficial/handwritten-digit-recognition",
+      githubUrl: "https://github.com/abdulshareefnsofficial/handwritten-digit-recognition-cnn",
       highlights: [
         "Trained model on benchmark handwritten dataset achieving over 98% accuracy",
         "Interactive canvas GUI allowing real-time drawing and digit prediction",
