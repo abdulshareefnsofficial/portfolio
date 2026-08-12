@@ -21,35 +21,41 @@ export const Contact = () => {
     setSubmitting(true);
 
     try {
-      // Send form data to Formspree endpoint for abdulshareefnsofficial@gmail.com
-      const response = await fetch(`https://formspree.io/f/abdulshareefnsofficial@gmail.com`, {
-        method: 'POST',
+      // Send form data to FormSubmit endpoint for abdulshareefnsofficial@gmail.com
+      const response = await fetch("https://formsubmit.co/ajax/abdulshareefnsofficial@gmail.com", {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
-          'Accept': 'application/json'
+          "Content-Type": "application/json",
+          "Accept": "application/json"
         },
         body: JSON.stringify({
           name: formData.name,
           email: formData.email,
-          subject: formData.subject,
+          _subject: `Portfolio Message from ${formData.name}: ${formData.subject}`,
           message: formData.message
         })
       });
 
-      setSubmitting(false);
-      setSentSuccess(true);
-      
-      // Trigger Confetti!
-      confetti({
-        particleCount: 80,
-        spread: 70,
-        origin: { y: 0.6 }
-      });
+      const result = await response.json();
 
-      setFormData({ name: '', email: '', subject: '', message: '' });
-      setTimeout(() => setSentSuccess(false), 6000);
+      if (response.ok || result.success === "true") {
+        setSubmitting(false);
+        setSentSuccess(true);
+        
+        // Trigger Confetti!
+        confetti({
+          particleCount: 80,
+          spread: 70,
+          origin: { y: 0.6 }
+        });
+
+        setFormData({ name: '', email: '', subject: '', message: '' });
+        setTimeout(() => setSentSuccess(false), 6000);
+      } else {
+        throw new Error("Form submission failed");
+      }
     } catch (err) {
-      // Fallback to WhatsApp / Mailto if offline
+      // Fallback: Open WhatsApp with the pre-filled message
       setSubmitting(false);
       const encodedMsg = encodeURIComponent(`Hi Abdul Shareef,\n\nName: ${formData.name}\nEmail: ${formData.email}\nSubject: ${formData.subject}\nMessage: ${formData.message}`);
       window.open(`https://wa.me/919048180974?text=${encodedMsg}`, '_blank');
@@ -88,7 +94,7 @@ export const Contact = () => {
             <div className="glass-panel p-8 rounded-3xl border-slate-800 space-y-6">
               <h3 className="text-2xl font-bold text-white">Contact Information</h3>
               <p className="text-slate-400 text-sm leading-relaxed">
-                Reach out directly via Gmail or WhatsApp. Messages sent via the form arrive in your email inbox!
+                Reach out directly via Gmail or WhatsApp. Messages sent via the form arrive directly in your Gmail inbox!
               </p>
 
               <div className="space-y-4 pt-2">
@@ -245,7 +251,7 @@ export const Contact = () => {
               {sentSuccess && (
                 <div className="p-4 rounded-xl bg-emerald-500/20 border border-emerald-500/40 text-emerald-300 text-sm font-medium flex items-center gap-2 animate-in fade-in duration-200">
                   <Check className="w-5 h-5 text-emerald-400 shrink-0" />
-                  <span>Thank you! Your message has been submitted and sent directly to my inbox.</span>
+                  <span>Thank you! Your message has been submitted and sent directly to my Gmail inbox.</span>
                 </div>
               )}
 
@@ -260,7 +266,7 @@ export const Contact = () => {
                 ) : (
                   <>
                     <Send className="w-4 h-4" />
-                    <span>Send Message to My Email</span>
+                    <span>Send Message to My Gmail</span>
                   </>
                 )}
               </button>
