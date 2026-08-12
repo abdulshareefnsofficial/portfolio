@@ -175,7 +175,7 @@ export const Hero = () => {
                   <span className="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
                   <span className="text-emerald-400">System Ready</span>
                 </span>
-                <span className="text-indigo-400">Thrissur, Kerala</span>
+                <span className="text-indigo-400">India</span>
               </div>
 
             </div>
