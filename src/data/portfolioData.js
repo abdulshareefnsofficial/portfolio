@@ -1,6 +1,6 @@
 export const portfolioData = {
   personalInfo: {
-    name: "Abdul Shareef",
+    name: "Abdul Shareef N S",
     titles: [
       "AI & ML Engineer (B.Sc. AI&ML)",
       "2D Graphics & Motion Designer",
@@ -27,7 +27,7 @@ export const portfolioData = {
   stats: [
     { label: "Years Experience", value: "3+", suffix: "Years" },
     { label: "Web & AI Projects", value: "20+", suffix: "Built" },
-    { label: "Design Projects", value: "40+", suffix: "Created" },
+    { label: "Design Projects", value: "35+", suffix: "Created" },
     { label: "Client Rating", value: "100%", suffix: "Satisfaction" }
   ],
 
