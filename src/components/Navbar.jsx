@@ -125,7 +125,7 @@ export const Navbar = ({ activeSection }) => {
             onClick={() => setMobileMenuOpen(false)}
             className="block text-center w-full py-3 px-4 rounded-xl bg-gradient-to-r from-indigo-600 to-purple-600 text-white font-semibold shadow-md shadow-indigo-500/20"
           >
-            Get In Touch
+            Get In Touch me
           </a>
         </div>
       )}
