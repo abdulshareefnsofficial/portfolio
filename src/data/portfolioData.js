@@ -125,20 +125,20 @@ export const portfolioData = {
       ]
     },
     {
-      id: "home-automation-iot",
-      title: "Home Automation Using IOT",
-      category: "IoT & Automation",
+      id: "vectorcraft-2d-design",
+      title: "VectorCraft 2D Graphics & Motion Suite",
+      category: "2D Design & Web",
       featured: true,
-      tagline: "Smart Remote Device Control & Automated Environmental Monitoring",
-      description: "Home automation system that is able to control various components via internet or be automatically programmed to operate from ambient conditions, minimizing human interaction.",
-      techStack: ["IoT", "Python", "C++", "Sensors", "Web Interface"],
-      image: "https://images.unsplash.com/photo-1558002038-1055907df827?auto=format&fit=crop&w=1000&q=80",
-      liveUrl: "https://abdulshareefnsofficial.github.io/portfolio/#home-automation",
-      githubUrl: "https://github.com/abdulshareefnsofficial/home-automation-iot",
+      tagline: "Vector Asset Composition & 2D Motion Graphics Application",
+      description: "Graphic design & motion graphics suite created for designing 2D vector illustrations, typography branding, and After Effects visual compositions.",
+      techStack: ["Photoshop", "Illustrator", "After Effects", "2D Motion", "React"],
+      image: "https://images.unsplash.com/photo-1626785774573-4b799315345d?auto=format&fit=crop&w=1000&q=80",
+      liveUrl: "https://abdulshareefnsofficial.github.io/portfolio/#vectorcraft",
+      githubUrl: "https://github.com/abdulshareefnsofficial/vectorcraft-app",
       highlights: [
-        "Remote web interface for real-time device control over Wi-Fi",
-        "Automated sensor triggers responding to temperature and light levels",
-        "Integration with IoT microcontroller platforms and sensor modules"
+        "2D Motion Graphics compositions & After Effects vector animation workflows",
+        "Custom brand identity layouts, character rigging, and UI graphics",
+        "Export pipeline for web-optimized visual assets and vector illustrations"
       ]
     },
     {
@@ -156,23 +156,6 @@ export const portfolioData = {
         "Trained model on benchmark handwritten dataset achieving over 98% accuracy",
         "Interactive canvas GUI allowing real-time drawing and digit prediction",
         "Preprocessing pipeline including grayscale conversion, thresholding, and normalization"
-      ]
-    },
-    {
-      id: "ai-learning-platform",
-      title: "AI Interactive Learning Hub",
-      category: "Full Stack",
-      featured: false,
-      tagline: "Full-Stack Web Platform for Interactive Code Execution & AI Tutorials",
-      description: "Designed and developed an interactive learning platform for AI/ML beginners with interactive code blocks, progress tracking, and exercise modules.",
-      techStack: ["React", "Node.js", "Express", "Tailwind CSS", "JavaScript"],
-      image: "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=1000&q=80",
-      liveUrl: "https://abdulshareefnsofficial.github.io/portfolio/#ai-learning-platform",
-      githubUrl: "https://github.com/abdulshareefnsofficial/ai-learning-platform",
-      highlights: [
-        "Interactive syntax-highlighted code editor for practicing Python & ML basics",
-        "Responsive dark-mode UI with progress persistence in localStorage",
-        "Integration of third-party UI libraries and plugins"
       ]
     }
   ],
