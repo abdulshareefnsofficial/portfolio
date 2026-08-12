@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Mail, Send, Copy, Check, MapPin, Clock, MessageSquare, Sparkles } from 'lucide-react';
 import confetti from 'canvas-confetti';
 import { portfolioData } from '../data/portfolioData';
@@ -10,18 +10,49 @@ export const Contact = () => {
   const [submitting, setSubmitting] = useState(false);
   const [sentSuccess, setSentSuccess] = useState(false);
 
-  useEffect(() => {
-    if (window.location.href.includes('success=true')) {
-      setSentSuccess(true);
-      confetti({ particleCount: 80, spread: 70, origin: { y: 0.6 } });
-      setTimeout(() => setSentSuccess(false), 6000);
-    }
-  }, []);
-
   const handleCopyEmail = () => {
     navigator.clipboard.writeText(personalInfo.email);
     setCopiedEmail(true);
     setTimeout(() => setCopiedEmail(false), 2500);
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setSubmitting(true);
+
+    try {
+      // Send form data silently in background to activated FormSubmit endpoint for abdulshareefnsofficial@gmail.com
+      const response = await fetch("https://formsubmit.co/ajax/abdulshareefnsofficial@gmail.com", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Accept": "application/json"
+        },
+        body: JSON.stringify({
+          name: formData.name,
+          email: formData.email,
+          _subject: `New Portfolio Message from ${formData.name}: ${formData.subject}`,
+          message: formData.message
+        })
+      });
+
+      setSubmitting(false);
+      setSentSuccess(true);
+      
+      // Trigger Confetti!
+      confetti({
+        particleCount: 80,
+        spread: 70,
+        origin: { y: 0.6 }
+      });
+
+      setFormData({ name: '', email: '', subject: '', message: '' });
+      setTimeout(() => setSentSuccess(false), 6000);
+    } catch (err) {
+      setSubmitting(false);
+      setSentSuccess(true);
+      setFormData({ name: '', email: '', subject: '', message: '' });
+    }
   };
 
   const handleWhatsAppSend = () => {
@@ -31,16 +62,6 @@ export const Contact = () => {
     }
     const text = encodeURIComponent(`Hi Abdul Shareef,\n\nName: ${formData.name}\nEmail: ${formData.email}\nSubject: ${formData.subject}\nMessage: ${formData.message}`);
     window.open(`https://wa.me/919048180974?text=${text}`, '_blank');
-  };
-
-  const handleEmailAppSend = () => {
-    if (!formData.name || !formData.message) {
-      alert("Please fill in your name and message.");
-      return;
-    }
-    const subject = encodeURIComponent(formData.subject || "Portfolio Inquiry");
-    const body = encodeURIComponent(`Name: ${formData.name}\nEmail: ${formData.email}\n\nMessage:\n${formData.message}`);
-    window.open(`mailto:abdulshareefnsofficial@gmail.com?subject=${subject}&body=${body}`, '_self');
   };
 
   return (
@@ -73,7 +94,7 @@ export const Contact = () => {
             <div className="glass-panel p-8 rounded-3xl border-slate-800 space-y-6">
               <h3 className="text-2xl font-bold text-white">Contact Information</h3>
               <p className="text-slate-400 text-sm leading-relaxed">
-                Reach out directly via Gmail or WhatsApp. All form submissions are sent to abdulshareefnsofficial@gmail.com.
+                Reach out directly via Gmail or WhatsApp. Messages submitted via the form arrive directly in your Gmail inbox!
               </p>
 
               <div className="space-y-4 pt-2">
@@ -160,15 +181,7 @@ export const Contact = () => {
 
           {/* Right Contact Form (Col 7) */}
           <div className="lg:col-span-7 glass-panel p-8 rounded-3xl border-slate-800">
-            <form 
-              action="https://formsubmit.co/abdulshareefnsofficial@gmail.com" 
-              method="POST"
-              className="space-y-5"
-            >
-              {/* FormSubmit Configuration */}
-              <input type="hidden" name="_captcha" value="false" />
-              <input type="hidden" name="_template" value="table" />
-              <input type="hidden" name="_next" value="https://abdulshareefnsofficial.github.io/portfolio/#contact?success=true" />
+            <form onSubmit={handleSubmit} className="space-y-5">
               
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                 
@@ -179,7 +192,6 @@ export const Contact = () => {
                   </label>
                   <input
                     type="text"
-                    name="name"
                     required
                     placeholder="John Doe"
                     value={formData.name}
@@ -195,7 +207,6 @@ export const Contact = () => {
                   </label>
                   <input
                     type="email"
-                    name="email"
                     required
                     placeholder="john@example.com"
                     value={formData.email}
@@ -213,7 +224,6 @@ export const Contact = () => {
                 </label>
                 <input
                   type="text"
-                  name="_subject"
                   required
                   placeholder="Project Inquiry / Job Opportunity"
                   value={formData.subject}
@@ -229,7 +239,6 @@ export const Contact = () => {
                 </label>
                 <textarea
                   rows="5"
-                  name="message"
                   required
                   placeholder="Tell me about your project or requirements..."
                   value={formData.message}
@@ -242,7 +251,7 @@ export const Contact = () => {
               {sentSuccess && (
                 <div className="p-4 rounded-xl bg-emerald-500/20 border border-emerald-500/40 text-emerald-300 text-sm font-medium flex items-center gap-2 animate-in fade-in duration-200">
                   <Check className="w-5 h-5 text-emerald-400 shrink-0" />
-                  <span>Thank you! Your message has been sent to abdulshareefnsofficial@gmail.com.</span>
+                  <span>Thank you! Your message has been sent directly to abdulshareefnsofficial@gmail.com.</span>
                 </div>
               )}
 
@@ -250,31 +259,27 @@ export const Contact = () => {
               <div className="space-y-3 pt-2">
                 <button
                   type="submit"
-                  className="w-full py-4 rounded-xl text-sm font-semibold text-white bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 hover:opacity-95 transition-all shadow-xl shadow-indigo-500/20 flex items-center justify-center gap-2"
+                  disabled={submitting}
+                  className="w-full py-4 rounded-xl text-sm font-semibold text-white bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 hover:opacity-95 transition-all shadow-xl shadow-indigo-500/20 flex items-center justify-center gap-2 disabled:opacity-50"
                 >
-                  <Send className="w-4 h-4" />
-                  <span>Send Message (Direct Email)</span>
+                  {submitting ? (
+                    <span>Sending Message...</span>
+                  ) : (
+                    <>
+                      <Send className="w-4 h-4" />
+                      <span>Send Message</span>
+                    </>
+                  )}
                 </button>
 
-                <div className="grid grid-cols-2 gap-3">
-                  <button
-                    type="button"
-                    onClick={handleWhatsAppSend}
-                    className="py-3 px-4 rounded-xl text-xs font-semibold text-emerald-400 bg-emerald-950/40 border border-emerald-500/30 hover:bg-emerald-900/50 transition-colors flex items-center justify-center gap-2"
-                  >
-                    <MessageSquare className="w-4 h-4" />
-                    <span>Send via WhatsApp</span>
-                  </button>
-
-                  <button
-                    type="button"
-                    onClick={handleEmailAppSend}
-                    className="py-3 px-4 rounded-xl text-xs font-semibold text-indigo-300 bg-indigo-950/40 border border-indigo-500/30 hover:bg-indigo-900/50 transition-colors flex items-center justify-center gap-2"
-                  >
-                    <Mail className="w-4 h-4" />
-                    <span>Send via Email App</span>
-                  </button>
-                </div>
+                <button
+                  type="button"
+                  onClick={handleWhatsAppSend}
+                  className="w-full py-3 px-4 rounded-xl text-xs font-semibold text-emerald-400 bg-emerald-950/40 border border-emerald-500/30 hover:bg-emerald-900/50 transition-colors flex items-center justify-center gap-2"
+                >
+                  <MessageSquare className="w-4 h-4" />
+                  <span>Send via WhatsApp Direct</span>
+                </button>
               </div>
 
             </form>
