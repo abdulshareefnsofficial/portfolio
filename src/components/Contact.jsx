@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Mail, Send, Copy, Check, MapPin, Clock, MessageSquare, Sparkles } from 'lucide-react';
+import { Mail, Send, Copy, Check, MapPin, Clock, MessageSquare, Sparkles, CheckCircle2, Home, ArrowLeft } from 'lucide-react';
 import confetti from 'canvas-confetti';
 import { portfolioData } from '../data/portfolioData';
 
@@ -8,7 +8,7 @@ export const Contact = () => {
   const [formData, setFormData] = useState({ name: '', email: '', subject: '', message: '' });
   const [copiedEmail, setCopiedEmail] = useState(false);
   const [submitting, setSubmitting] = useState(false);
-  const [sentSuccess, setSentSuccess] = useState(false);
+  const [showSuccessModal, setShowSuccessModal] = useState(false);
 
   const handleCopyEmail = () => {
     navigator.clipboard.writeText(personalInfo.email);
@@ -22,7 +22,7 @@ export const Contact = () => {
 
     try {
       // Send form data silently in background to activated FormSubmit endpoint for abdulshareefnsofficial@gmail.com
-      const response = await fetch("https://formsubmit.co/ajax/abdulshareefnsofficial@gmail.com", {
+      await fetch("https://formsubmit.co/ajax/abdulshareefnsofficial@gmail.com", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -37,22 +37,26 @@ export const Contact = () => {
       });
 
       setSubmitting(false);
-      setSentSuccess(true);
+      setShowSuccessModal(true);
       
       // Trigger Confetti!
       confetti({
-        particleCount: 80,
-        spread: 70,
-        origin: { y: 0.6 }
+        particleCount: 100,
+        spread: 80,
+        origin: { y: 0.5 }
       });
 
       setFormData({ name: '', email: '', subject: '', message: '' });
-      setTimeout(() => setSentSuccess(false), 6000);
     } catch (err) {
       setSubmitting(false);
-      setSentSuccess(true);
+      setShowSuccessModal(true);
       setFormData({ name: '', email: '', subject: '', message: '' });
     }
+  };
+
+  const handleBackToMainMenu = () => {
+    setShowSuccessModal(false);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   const handleWhatsAppSend = () => {
@@ -247,14 +251,6 @@ export const Contact = () => {
                 ></textarea>
               </div>
 
-              {/* Success Message Banner */}
-              {sentSuccess && (
-                <div className="p-4 rounded-xl bg-emerald-500/20 border border-emerald-500/40 text-emerald-300 text-sm font-medium flex items-center gap-2 animate-in fade-in duration-200">
-                  <Check className="w-5 h-5 text-emerald-400 shrink-0" />
-                  <span>Thank you! Your message has been sent directly to abdulshareefnsofficial@gmail.com.</span>
-                </div>
-              )}
-
               {/* Submit Buttons */}
               <div className="space-y-3 pt-2">
                 <button
@@ -263,7 +259,7 @@ export const Contact = () => {
                   className="w-full py-4 rounded-xl text-sm font-semibold text-white bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 hover:opacity-95 transition-all shadow-xl shadow-indigo-500/20 flex items-center justify-center gap-2 disabled:opacity-50"
                 >
                   {submitting ? (
-                    <span>Sending Message...</span>
+                    <span>Submitting Message...</span>
                   ) : (
                     <>
                       <Send className="w-4 h-4" />
@@ -288,6 +284,42 @@ export const Contact = () => {
         </div>
 
       </div>
+
+      {/* Success Modal Overlay */}
+      {showSuccessModal && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md animate-in fade-in duration-200">
+          <div className="relative w-full max-w-lg glass-panel rounded-3xl border border-emerald-500/40 shadow-2xl bg-[#090d16] text-slate-100 p-8 space-y-6 text-center">
+            
+            {/* Glowing Icon */}
+            <div className="w-16 h-16 mx-auto rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 flex items-center justify-center shadow-lg shadow-emerald-500/20 animate-bounce">
+              <CheckCircle2 className="w-8 h-8" />
+            </div>
+
+            {/* Title & Message */}
+            <div className="space-y-2">
+              <h3 className="text-2xl font-extrabold text-white">
+                Message Submitted! 🥳
+              </h3>
+              <p className="text-slate-300 text-sm leading-relaxed">
+                Thank you for reaching out! Your message has been submitted. We will contact you shortly.
+              </p>
+            </div>
+
+            {/* Action Button: Back to Main Menu */}
+            <div className="pt-2">
+              <button
+                onClick={handleBackToMainMenu}
+                className="w-full py-3.5 px-6 rounded-xl font-semibold text-white bg-gradient-to-r from-emerald-600 via-teal-600 to-indigo-600 hover:opacity-95 transition-all shadow-lg shadow-emerald-500/25 flex items-center justify-center gap-2"
+              >
+                <Home className="w-4 h-4" />
+                <span>Back to Main Menu</span>
+              </button>
+            </div>
+
+          </div>
+        </div>
+      )}
+
     </section>
   );
 };
