@@ -31,7 +31,7 @@ export const About = () => {
             About & Expertise
           </div>
           <h2 className="text-3xl sm:text-5xl font-extrabold tracking-tight">
-            Crafting Digital Solutions That <span className="text-gradient">Empower & Perform</span>
+            Turning Ideas Into <span className="text-gradient">Intelligent Innovations</span>
           </h2>
           <p className="text-slate-400 text-base sm:text-lg">
             I bridge the gap between Deep Learning AI research, 2D visual graphic design, and full-stack web application development.
