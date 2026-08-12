@@ -1,6 +1,6 @@
 export const portfolioData = {
   personalInfo: {
-    name: "Abdul Shareef N S",
+    name: "Abdul Shareef",
     titles: [
       "AI & ML Engineer (B.Sc. AI&ML)",
       "2D Graphics & Motion Designer",
