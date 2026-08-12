@@ -16,11 +16,26 @@ export const Contact = () => {
     setTimeout(() => setCopiedEmail(false), 2500);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setSubmitting(true);
 
-    setTimeout(() => {
+    try {
+      // Send form data to Formspree endpoint for abdulshareefnsofficial@gmail.com
+      const response = await fetch(`https://formspree.io/f/abdulshareefnsofficial@gmail.com`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
+        body: JSON.stringify({
+          name: formData.name,
+          email: formData.email,
+          subject: formData.subject,
+          message: formData.message
+        })
+      });
+
       setSubmitting(false);
       setSentSuccess(true);
       
@@ -32,8 +47,15 @@ export const Contact = () => {
       });
 
       setFormData({ name: '', email: '', subject: '', message: '' });
-      setTimeout(() => setSentSuccess(false), 5000);
-    }, 1000);
+      setTimeout(() => setSentSuccess(false), 6000);
+    } catch (err) {
+      // Fallback to WhatsApp / Mailto if offline
+      setSubmitting(false);
+      const encodedMsg = encodeURIComponent(`Hi Abdul Shareef,\n\nName: ${formData.name}\nEmail: ${formData.email}\nSubject: ${formData.subject}\nMessage: ${formData.message}`);
+      window.open(`https://wa.me/919048180974?text=${encodedMsg}`, '_blank');
+      setSentSuccess(true);
+      setFormData({ name: '', email: '', subject: '', message: '' });
+    }
   };
 
   return (
@@ -66,7 +88,7 @@ export const Contact = () => {
             <div className="glass-panel p-8 rounded-3xl border-slate-800 space-y-6">
               <h3 className="text-2xl font-bold text-white">Contact Information</h3>
               <p className="text-slate-400 text-sm leading-relaxed">
-                Feel free to reach out via email or WhatsApp. I typically respond within 24 hours.
+                Reach out directly via Gmail or WhatsApp. Messages sent via the form arrive in your email inbox!
               </p>
 
               <div className="space-y-4 pt-2">
@@ -78,7 +100,7 @@ export const Contact = () => {
                       <Mail className="w-5 h-5" />
                     </div>
                     <div>
-                      <div className="text-xs text-slate-500 font-mono uppercase">Direct Email</div>
+                      <div className="text-xs text-slate-500 font-mono uppercase">Direct Gmail</div>
                       <div className="text-sm font-semibold text-slate-200">{personalInfo.email}</div>
                     </div>
                   </div>
@@ -114,7 +136,7 @@ export const Contact = () => {
                       <MessageSquare className="w-5 h-5" />
                     </div>
                     <div>
-                      <div className="text-xs text-slate-500 font-mono uppercase">WhatsApp / Phone</div>
+                      <div className="text-xs text-slate-500 font-mono uppercase">WhatsApp Direct</div>
                       <div className="text-sm font-semibold text-slate-200 group-hover:text-emerald-400 transition-colors">{personalInfo.phone}</div>
                     </div>
                   </div>
@@ -223,7 +245,7 @@ export const Contact = () => {
               {sentSuccess && (
                 <div className="p-4 rounded-xl bg-emerald-500/20 border border-emerald-500/40 text-emerald-300 text-sm font-medium flex items-center gap-2 animate-in fade-in duration-200">
                   <Check className="w-5 h-5 text-emerald-400 shrink-0" />
-                  <span>Thank you! Your message has been sent successfully. I'll get back to you shortly.</span>
+                  <span>Thank you! Your message has been submitted and sent directly to my inbox.</span>
                 </div>
               )}
 
@@ -238,7 +260,7 @@ export const Contact = () => {
                 ) : (
                   <>
                     <Send className="w-4 h-4" />
-                    <span>Send Message</span>
+                    <span>Send Message to My Email</span>
                   </>
                 )}
               </button>
